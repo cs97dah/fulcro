@@ -72,7 +72,8 @@
                            (log/error e "Parser threw an exception on" query " See https://book.fulcrologic.com/#err-parser-errored-on-query")
                            e))]
       (if (instance? Throwable parse-result)
-        {:status 500 :body "Internal server error. Parser threw an exception. See server logs for details."}
+        {:status 500
+         :body {:error "Internal server error. Parser threw an exception. See server logs for details."}}
         (merge {:status 200 :body parse-result} (apply-response-augmentations parse-result))))))
 
 (defn reader
